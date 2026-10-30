@@ -167,29 +167,125 @@ scanButton.addEventListener("click", () => {
 
 // Prepare valuation
 
-document.getElementById("prepareButton")
-    .addEventListener("click", () => {
 
-        const brand = document.getElementById("brand").value.trim();
-        const clothingType = document.getElementById("clothingType").value;
-        const size = document.getElementById("size").value.trim();
-        const condition = document.getElementById("condition").value;
+// SECOND LOOK — OCR ENGINE
 
-        const message = document.getElementById("resultMessage");
+const prepareButton = document.getElementById("prepareButton");
+const resultMessage = document.getElementById("resultMessage");
 
-        if (!brand || !clothingType || !size) {
-            message.textContent =
-                "Please fill in the brand, clothing type and size.";
-            return;
+const brandInput = document.getElementById("brand");
+const sizeInput = document.getElementById("size");
+
+prepareButton.addEventListener("click", async () => {
+    if (!labelInput.files[0]) {
+        resultMessage.textContent = "Please upload a label photo first.";
+        return;
+    }
+
+    prepareButton.disabled = true;
+    prepareButton.textContent = "Reading label...";
+
+    resultMessage.textContent = "Initializing OCR engine...";
+
+    try {
+        const worker = await Tesseract.createWorker("eng");
+
+        resultMessage.textContent = "Scanning clothing label...";
+
+        const result = await worker.recognize(labelInput.files[0]);
+
+        const text = result.data.text;
+
+        await worker.terminate();
+
+        console.log("Extracted label text:", text);
+
+        // Extract information
+        const lines = text
+            .split("\n")
+            .map(line => line.trim())
+            .filter(Boolean);
+
+        // Find likely brand
+        const brands = [
+            "Nike",
+            "Adidas",
+            "Puma",
+            "Reebok",
+            "Under Armour",
+            "New Balance",
+            "H&M",
+            "Zara",
+            "Uniqlo",
+            "Levi's",
+            "Carhartt",
+            "The North Face",
+            "Ralph Lauren",
+            "Tommy Hilfiger",
+            "Calvin Klein",
+            "Lacoste",
+            "Champion",
+            "GANT",
+            "COS",
+            "Arket"
+        ];
+
+        const normalizedText = text.toLowerCase();
+
+        const detectedBrand = brands.find(brand =>
+            normalizedText.includes(brand.toLowerCase())
+        );
+
+        // Extract size
+        const sizeMatch = text.match(
+            /\b(XXS|XS|S|M|L|XL|XXL|XXXL|[0-9]{2,3})\b/i
+        );
+
+        // Update form
+        if (detectedBrand) {
+            brandInput.value = detectedBrand;
         }
 
-        message.textContent =
-            "Details saved for this session. Automatic identification and market valuation are coming in the next development phase.";
+        if (sizeMatch) {
+            sizeInput.value = sizeMatch[0].toUpperCase();
+        }
 
-        console.log("SECOND LOOK item:", {
-            brand,
-            clothingType,
-            size,
-            condition
-        });
-    });
+        // Show extracted text for review
+        const oldOutput = document.getElementById("ocrOutput");
+
+        if (oldOutput) oldOutput.remove();
+
+        const output = document.createElement("div");
+        output.id = "ocrOutput";
+        output.className = "ocr-output";
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Label recognition";
+
+        const description = document.createElement("p");
+        description.textContent = detectedBrand
+            ? `Brand detected: ${detectedBrand}`
+            : "Brand not automatically identified. Please enter it manually.";
+
+        const rawText = document.createElement("pre");
+        rawText.textContent = text || "No readable text found.";
+
+        output.append(heading, description, rawText);
+
+        document.querySelector(".result-form").appendChild(output);
+
+        resultMessage.textContent =
+            "Scan complete! Check the extracted information.";
+
+    } catch (error) {
+        console.error("OCR error:", error);
+
+        resultMessage.textContent =
+            "Could not read the label. Please try a clearer photo.";
+
+    } finally {
+        prepareButton.disabled = false;
+        prepareButton.textContent = "Scan label again ↗";
+    }
+});
+
