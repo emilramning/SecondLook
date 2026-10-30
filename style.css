@@ -641,3 +641,36 @@ footer p,
         font-size: 9px;
     }
 }
+
+
+/* OCR RESULTS */
+
+.ocr-output {
+    margin-top: 20px;
+    padding: 18px;
+    background: #f8f7f3;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.ocr-output h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.ocr-output p {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: #777;
+}
+
+.ocr-output pre {
+    font-family: monospace;
+    font-size: 11px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    max-height: 200px;
+    overflow-y: auto;
+    color: #444;
+}
