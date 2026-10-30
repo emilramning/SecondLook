@@ -1,1 +1,222 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f6f2">
+    <title>SECOND LOOK — Your clothes. Revalued.</title>
+    <meta name="description" content="Discover what your clothes are worth. Scan clothing labels and explore their value with SECOND LOOK.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="#" class="logo">SECOND<span>LOOK.</span></a>
+
+        <nav>
+            <a href="#how-it-works">How it works</a>
+            <a href="#scanner" class="nav-button">Scan an item <span>↗</span></a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="eyebrow">
+                    <span class="status-dot"></span>
+                    THE SMARTER WAY TO VALUE FASHION
+                </div>
+
+                <h1>Your clothes.<br>
+                    <span>Revalued.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Ever wondered what your wardrobe is worth?
+                    Discover the value of your clothes with just two photos.
+                </p>
+
+                <a href="#scanner" class="primary-button">
+                    Discover your item's value <span>↗</span>
+                </a>
+
+                <div class="hero-note">
+                    No AI required. Just smart technology.
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="visual-label">SECOND LOOK / 001</div>
+                    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=1000"
+                         alt="Fashion clothing collection">
+                    <div class="visual-bottom">
+                        <div>
+                            <span>THE FUTURE OF RESALE</span>
+                            <h3>Look closer.</h3>
+                        </div>
+                        <div class="visual-arrow">↗</div>
+                    </div>
+                </div>
+                <div class="floating-tag">DISCOVER VALUE ✳</div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div>
+                <strong>01</strong>
+                <span>Upload your item</span>
+            </div>
+            <div>
+                <strong>02</strong>
+                <span>Identify the brand</span>
+            </div>
+            <div>
+                <strong>03</strong>
+                <span>Discover its value</span>
+            </div>
+        </section>
+
+        <section class="scanner-section" id="scanner">
+            <div class="section-heading">
+                <div class="eyebrow">01 / THE SCANNER</div>
+                <h2>Let's take a closer look.</h2>
+                <p>Upload two photos of your clothing item to get started.</p>
+            </div>
+
+            <div class="upload-grid">
+                <div class="upload-card">
+                    <div class="upload-top">
+                        <span class="upload-number">01</span>
+                        <span class="upload-type">THE ITEM</span>
+                    </div>
+
+                    <div class="upload-area" id="itemArea">
+                        <input type="file" id="itemInput" accept="image/*" hidden>
+                        <img id="itemPreview" class="preview" alt="Clothing item preview" hidden>
+
+                        <div class="upload-placeholder" id="itemPlaceholder">
+                            <div class="upload-icon">↥</div>
+                            <h3>Upload your item</h3>
+                            <p>Take a clear photo of the entire clothing item.</p>
+                            <button class="upload-button" type="button">Choose photo</button>
+                        </div>
+                    </div>
+
+                    <button class="remove-image" id="removeItem" hidden type="button">Remove photo ×</button>
+                </div>
+
+                <div class="upload-card">
+                    <div class="upload-top">
+                        <span class="upload-number">02</span>
+                        <span class="upload-type">THE LABEL</span>
+                    </div>
+
+                    <div class="upload-area" id="labelArea">
+                        <input type="file" id="labelInput" accept="image/*" hidden>
+                        <img id="labelPreview" class="preview" alt="Clothing label preview" hidden>
+
+                        <div class="upload-placeholder" id="labelPlaceholder">
+                            <div class="upload-icon">↥</div>
+                            <h3>Upload the label</h3>
+                            <p>Take a close-up photo of the brand and product label.</p>
+                            <button class="upload-button" type="button">Choose photo</button>
+                        </div>
+                    </div>
+
+                    <button class="remove-image" id="removeLabel" hidden type="button">Remove photo ×</button>
+                </div>
+            </div>
+
+            <div class="scan-action">
+                <button id="scanButton" class="primary-button scan-button" disabled>
+                    Continue to identification <span>↗</span>
+                </button>
+                <p id="scanMessage">Upload both photos to continue.</p>
+            </div>
+        </section>
+
+        <section class="results-section" id="results" hidden>
+            <div class="section-heading">
+                <div class="eyebrow">02 / ITEM DETAILS</div>
+                <h2>Tell us what you know.</h2>
+                <p>Enter the details to prepare your valuation.</p>
+            </div>
+
+            <div class="results-card">
+                <div class="result-images">
+                    <img id="resultItem" alt="Your clothing item">
+                    <img id="resultLabel" alt="Your clothing label">
+                </div>
+
+                <div class="result-form">
+                    <label for="brand">Brand</label>
+                    <input id="brand" type="text" placeholder="e.g. Nike">
+
+                    <label for="clothingType">Clothing type</label>
+                    <select id="clothingType">
+                        <option value="">Select clothing type</option>
+                        <option>Hoodie</option>
+                        <option>T-shirt</option>
+                        <option>Jacket</option>
+                        <option>Sweater</option>
+                        <option>Jeans</option>
+                        <option>Trousers</option>
+                        <option>Shoes</option>
+                        <option>Other</option>
+                    </select>
+
+                    <label for="size">Size</label>
+                    <input id="size" type="text" placeholder="e.g. M">
+
+                    <label for="condition">Condition</label>
+                    <select id="condition">
+                        <option value="Excellent">Excellent</option>
+                        <option value="Very good">Very good</option>
+                        <option value="Good">Good</option>
+                        <option value="Fair">Fair</option>
+                    </select>
+
+                    <button class="primary-button full-button" id="prepareButton">
+                        Prepare valuation ↗
+                    </button>
+
+                    <p id="resultMessage" class="result-message"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-section" id="how-it-works">
+            <div class="eyebrow">02 / THE PROCESS</div>
+            <h2>Simple as that.</h2>
+
+            <div class="how-grid">
+                <article>
+                    <span>01</span>
+                    <h3>Photograph</h3>
+                    <p>Upload a picture of your clothing item and its label.</p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h3>Identify</h3>
+                    <p>Extract product information and identify the brand.</p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h3>Discover</h3>
+                    <p>Explore market prices and estimate your item's value.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#" class="logo">SECOND<span>LOOK.</span></a>
+        <p>Your clothes. Revalued.</p>
+        <span class="copyright">© 2026 SECOND LOOK</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
